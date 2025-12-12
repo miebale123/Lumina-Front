@@ -1,0 +1,19 @@
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../out-tsc/app",
+    "types": []
+  },
+  "include": [
+    "src/**/*.ts",
+    "../my-lib/src/lib/social.component.ts",
+    "../my-lib/src/lib/zod.validator.ts",
+    "../my-lib/src/lib/auth-local/sign-up.component.ts",
+    "../admin/src/app/layout-admin/admin-header.component.ts",
+    "../my-lib/src/lib/oauth-log-in.component.ts",
+    "../my-lib/src/lib/baseHeader.component.ts"
+  ],
+  "exclude": ["src/**/*.spec.ts"]
+}
