@@ -6,6 +6,7 @@ import { LucideAngularModule, EllipsisVertical, Trash } from 'lucide-angular';
 import { AuthStateService } from '../../../../../my-lib/src/lib/auth/auth-state.service';
 import { NotificationsStore } from './notifications.store';
 import { HousesStore } from 'my-lib';
+import { HousesApiService } from '../houses/houses-api.service';
 
 @Component({
   selector: 'notifications',
@@ -69,7 +70,7 @@ import { HousesStore } from 'my-lib';
 })
 export class Notifications {
   nStore = inject(NotificationsStore);
-  hStore = inject(HousesStore);
+  housesApiService = inject(HousesApiService);
   router = inject(Router);
   auth = inject(AuthStateService);
 
@@ -100,7 +101,7 @@ export class Notifications {
   }
 
   async getHouse(id: string) {
-    await this.hStore.getHouse(id);
+    await this.housesApiService.getHouse(id);
     this.router.navigateByUrl('/house');
   }
 

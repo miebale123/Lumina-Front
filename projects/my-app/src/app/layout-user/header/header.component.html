@@ -1,7 +1,7 @@
 <header
-  class="left-0 right-0 z-10001 flex items-center justify-between px-4 md:px-8 py-2 bg-white backdrop-blur-md font-medium shadow-lg"
+  class="left-0 right-0 z-10001 flex items-center justify-around px-4 md:px-8 py-2 bg-white backdrop-blur-md font-medium shadow-lg"
 >
-  <div class="flex items-center gap-6 ml-20">
+  <div class="flex items-center gap-6">
     <button class="md:hidden" (click)="do()">
       <lucide-icon [name]="menu" class="w-6 h-6"></lucide-icon>
     </button>
@@ -11,7 +11,6 @@
     <nav class="hidden md:flex items-center gap-6 text-sm mt-1">
       <a routerLink="/" class="hover:underline">Buy</a>
       <button class="hover:underline" (click)="onNewPostClick()">Sell</button>
-      <button class="hover:underline">Find an Agent</button>
       <button class="hover:underline">My Home</button>
       <button class="hover:underline">Nearby Shops & Markets</button>
       <button class="hover:underline">Get Help</button>
@@ -53,6 +52,10 @@
       }
     </a>
 
+    <button (click)="go('bookmarks')">
+      <lucide-icon [name]="heart" class="w-5 h-5"></lucide-icon>
+    </button>
+
     <div class="relative">
       <button (click)="toggleDropdown()" class="flex items-center gap-2 pl-3">
         <div
@@ -68,10 +71,6 @@
           {{ auth.userEmail() }}
         </p>
 
-        <button (click)="go('bookmarks')" class="px-4 py-2 text-gray-200 hover:bg-gray-600">
-          <lucide-icon [name]="heart" class="w-5 h-5"></lucide-icon>
-          <span>saved homes</span>
-        </button>
         <button (click)="go('settings')" class="px-4 py-2 text-gray-200 hover:bg-gray-600">
           Settings
         </button>
@@ -104,14 +103,7 @@
 
   <button (click)="closeMobile()" class="flex items-center gap-2">Sell</button>
 
-  @if (auth.isAdmin()) {
-  <a routerLink="/admin" (click)="closeMobile()" class="flex items-center gap-2">
-    <lucide-icon [name]="shield" class="w-5 h-5"></lucide-icon>
-    Admin
-  </a>
-  } @if (auth.isExpert()) {
-  <a routerLink="/my-houses" (click)="closeMobile()" class="flex items-center gap-2"> My Home </a>
-  } @if (!auth.isLoggedIn()) {
+  @if (!auth.isLoggedIn()) {
   <button (click)="go('auth/sign-in'); closeMobile()" class="block text-left">Sign in</button>
   <button (click)="go('auth/sign-up'); closeMobile()" class="block text-left">Sign up</button>
   } @if (auth.isLoggedIn()) {

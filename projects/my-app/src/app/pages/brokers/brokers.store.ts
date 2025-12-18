@@ -3,10 +3,9 @@ import { inject } from '@angular/core';
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import { firstValueFrom } from 'rxjs';
 
-import { HouseService } from '../houses/houses.service';
 import { environment } from '../../../../../environments/environments';
-import { HousesStore } from 'my-lib';
-import { HouseResponseDto } from '../houses/dto/house.dto';
+import { HouseResponseDto, HousesStore } from 'my-lib';
+import { HousesApiService } from '../houses/houses-api.service';
 
 export interface BrokerDto {
   brokerLocation: string;
@@ -28,7 +27,6 @@ export const initialBrokerState: BrokerState = {
   brokerCompanyName: '',
   brokers: [],
   pendingHouses: [],
-
   approvedHouses: [],
 };
 
@@ -37,8 +35,8 @@ export const BrokersStore = signalStore(
   withState<BrokerState>(initialBrokerState),
   withMethods((store) => {
     const http = inject(HttpClient);
-    const housesService = inject(HouseService);
     const housesStore = inject(HousesStore);
+    const housesApiService =inject(HousesApiService)
 
     return {
       async uploadBrokerInfo() {
@@ -62,7 +60,7 @@ export const BrokersStore = signalStore(
       },
 
       async getPendingHouses() {
-        const res: any = await housesService.getPendingHouses();
+        const res: any = await housesApiService.getPendingHouses();
         patchState(store, { pendingHouses: res });
       },
 
@@ -72,7 +70,7 @@ export const BrokersStore = signalStore(
       },
 
       async approveHouse(id: string) {
-        const res: any = await housesService.approveHouse(id);
+        const res: any = await housesApiService.approveHouse(id);
         const approved = res.approvedHouse;
 
         const updatedPending = store.pendingHouses().filter((ph) => ph.id !== id);

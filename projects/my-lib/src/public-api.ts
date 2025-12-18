@@ -3,11 +3,12 @@ export * from './lib/auth-local/app-input.component';
 export * from './lib/auth-local/base-sign-in.component';
 export * from './lib/auth-local/base-sign-up.component';
 export * from './lib/social.component';
+export * from './lib/auth/auth-state.service'
 export * from './lib/baseHeader.component';
 export * from './lib/modal.service';
 export * from '../../my-app/src/app/pages/houses/houses.store';
 export * from '../../my-app/src/app/pages/brokers/broker.dto';
 export * from './lib/util.store';
-export * from './lib/auth-local/verification.component';
+export * from './lib/auth-local/email-verification.component';
 export * from '../../my-app/src/app/pages/houses/houses.store';
 export * from './lib/auth-local/app-input.component';

@@ -3,7 +3,6 @@ import { Home } from './pages/home/home.component';
 import { Houses } from './pages/houses/houses.component';
 import { UploadBrokerInfo } from './pages/brokers/upload_broker-info.component';
 import { HousesSearchResults } from './pages/houses/houses-search-results.component';
-import { House } from './pages/houses/house.component';
 import { VerificationComponent } from 'my-lib';
 import { LayoutUserComponent } from './layout-user/layout-user.component';
 import { UploadHouse } from './pages/houses/upload-house/upload-house.component';
@@ -33,10 +32,9 @@ export const routes: Routes = [
       { path: '', component: Home },
       { path: 'houses', component: Houses },
       { path: 'upload-house', component: UploadHouse },
-      { path: 'house', component: House },
       { path: 'houses-search-results', component: HousesSearchResults },
-      {path: 'bookmarks', component: Bookmarks},
-      {path: 'notifications', component: Notifications}
+      { path: 'bookmarks', component: Bookmarks },
+      { path: 'notifications', component: Notifications },
     ],
   },
 

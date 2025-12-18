@@ -23,7 +23,7 @@ body {
   background-repeat: no-repeat;
 }
 
-a:hover{
+a:hover {
   cursor: pointer;
 }
 
@@ -38,15 +38,6 @@ button:hover {
 label {
   margin-bottom: 0.25rem;
   font-weight: 500;
-}
-
-input {
-  border-width: 1px;
-  border-radius: 5px;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
 }
 
 .auth span {

@@ -6,7 +6,7 @@ import { OverlayRef } from '@angular/cdk/overlay';
 @Directive()
 export class BaseSignup extends BaseAuthForm {
   apiUrl = 'sign-up';
-  overlayRef= inject(OverlayRef)
+  overlayRef = inject(OverlayRef);
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -25,6 +25,9 @@ export class BaseSignup extends BaseAuthForm {
   }
   override async afterSuccess() {
     this.overlayRef?.dispose();
+    sessionStorage.setItem('email', this.authState.userEmail()!);
+    const email = sessionStorage.getItem('email');
+    console.log('the user who logged in is: ', email);
     this.router.navigateByUrl('/auth/app-verification');
   }
 }

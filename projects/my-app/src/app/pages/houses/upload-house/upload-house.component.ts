@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HousesStore } from '../houses.store';
 import { LoaderCircle, LucideAngularModule } from 'lucide-angular';
 import { UtilsStore } from 'my-lib';
+import { HouseUploadStore } from './upload-house.store';
 
 @Component({
   selector: 'upload-house',
@@ -81,7 +82,7 @@ import { UtilsStore } from 'my-lib';
             <label class="block mb-2 font-semibold text-gray-700">Location</label>
             <input
               type="text"
-              (input)="store.setUploadField('location', $any($event.target).value)"
+              (input)="uploadStore.setField('location', $any($event.target).value)"
               placeholder="Enter location"
               class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
             />
@@ -90,7 +91,7 @@ import { UtilsStore } from 'my-lib';
           <div>
             <label class="block mb-2 font-semibold text-gray-700">Price</label>
             <input
-              (input)="store.setUploadField('price', $any($event.target).value)"
+              (input)="uploadStore.setField('price', $any($event.target).value)"
               placeholder="Enter price"
               class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
             />
@@ -99,7 +100,7 @@ import { UtilsStore } from 'my-lib';
           <div>
             <label class="block mb-2 font-semibold text-gray-700">Bedrooms</label>
             <input
-              (input)="store.setUploadField('bedroom', $any($event.target).value)"
+              (input)="uploadStore.setField('bedroom', $any($event.target).value)"
               placeholder="Number of bedrooms"
               class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
             />
@@ -108,7 +109,7 @@ import { UtilsStore } from 'my-lib';
           <div>
             <label class="block mb-2 font-semibold text-gray-700">Bathrooms</label>
             <input
-              (input)="store.setUploadField('bathroom', $any($event.target).value)"
+              (input)="uploadStore.setField('bathroom', $any($event.target).value)"
               placeholder="Number of bathrooms"
               class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
             />
@@ -117,7 +118,7 @@ import { UtilsStore } from 'my-lib';
           <div class="md:col-span-2 flex gap-4">
             <label class="block mb-2 font-semibold text-gray-700">Area (sqft)</label>
             <input
-              (input)="store.setUploadField('area', $any($event.target).value)"
+              (input)="uploadStore.setField('area', $any($event.target).value)"
               placeholder="Property area"
               class="w-full px-2 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
             />
@@ -139,7 +140,8 @@ import { UtilsStore } from 'my-lib';
 })
 export class UploadHouse {
   utilsStore = inject(UtilsStore);
-  store = inject(HousesStore);
+  uploadStore = inject(HouseUploadStore);
+  housesStore = inject(HousesStore);
   uploadedPreview = signal<string | null>(null);
   imageLocked = signal(false);
   uploadedMessage = signal(false);
@@ -154,7 +156,7 @@ export class UploadHouse {
   onFileSelected(event: Event) {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (!file) return;
-    this.store.set('file', file);
+    this.uploadStore.setField('file', file);
     this.imageLocked.set(true);
     const reader = new FileReader();
     reader.onload = (e) => this.uploadedPreview.set(e.target?.result as string);
@@ -164,7 +166,9 @@ export class UploadHouse {
   async upload() {
     console.log('uploading');
     this.utilsStore.startLoading('upload');
-    await this.store.uploadHouse();
+    const upload = this.uploadStore.get();
+    await this.housesStore.uploadHouse(upload, upload.file!);
+
     this.utilsStore.stopLoading('upload');
     this.uploadedPreview.set(null);
     this.uploadedMessage.set(true);

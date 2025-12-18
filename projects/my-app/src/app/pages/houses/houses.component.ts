@@ -9,11 +9,12 @@ import {
   ChevronDown,
   Phone,
   Globe,
-  Bookmark,
   Bed,
 } from 'lucide-angular';
 import { Router } from '@angular/router';
 import { BookmarkStore } from '../bookmarks/bookmarks.store';
+import { HousesApiService } from './houses-api.service';
+import { HouseSearchStore } from './houses-search.store';
 
 @Component({
   selector: 'houses',
@@ -22,10 +23,10 @@ import { BookmarkStore } from '../bookmarks/bookmarks.store';
   template: `
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
       @for(house of store.houses(); track $index) {
-      <div
-        class=" rounded-xl overflow-hidden shadow-lg transition cursor-pointer group relative "
-        (click)="showHouse(house.id)"
-      >
+      <div class=" rounded-xl overflow-hidden shadow-lg transition cursor-pointer group relative ">
+        <p class="text-sm text-gray-500">
+          brokered by {{ store.house()?.assignedBrokerCompanyName }}
+        </p>
         <!-- House Image -->
         <div class="relative">
           <img
@@ -87,6 +88,8 @@ import { BookmarkStore } from '../bookmarks/bookmarks.store';
 export class Houses {
   store = inject(HousesStore);
   bookmarks = inject(BookmarkStore);
+  housesApiService = inject(HousesApiService);
+  searchHouseStore = inject(HouseSearchStore);
 
   router = inject(Router);
 
@@ -98,17 +101,15 @@ export class Houses {
   call = Phone;
   globe = Globe;
 
-  async ngOnInit() {
-    await this.store.getHouses();
-  }
+  housesStore = inject(HousesStore);
 
-  async showHouse(id: string) {
-    await this.store.getHouse(id);
-    this.router.navigateByUrl('/house');
+  async ngOnInit() {
+    // await this.housesApiService.getHouses();
+    await this.housesStore.getHouses();
   }
 
   async onSearch(searchValue: string) {
-    this.store.setSearchField('location', searchValue);
-    await this.store.getHouses(); // filter in-place
+    this.searchHouseStore.setField('location', searchValue);
+    await this.housesStore.getHouses();
   }
 }

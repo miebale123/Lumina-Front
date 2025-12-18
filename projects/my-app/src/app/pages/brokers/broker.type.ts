@@ -1,4 +1,4 @@
-import { HouseResponseDto } from "../houses/dto/house.dto";
+import { HouseResponseDto } from "my-lib";
 
 export interface Broker {
   bookmarks: {

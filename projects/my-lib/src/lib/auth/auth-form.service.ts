@@ -28,6 +28,7 @@ export class AuthFormService {
       const dto = form.value;
       const res: any = await firstValueFrom(this.http.post(`${this.baseUrl}/${apiUrl}`, dto));
 
+      console.log('the response is: ', res);
       message.set(res?.message);
       userEmail.set(res?.userEmail);
       isSuccess.set(true);
@@ -35,6 +36,7 @@ export class AuthFormService {
 
       const token = res?.accessToken;
       if (token) {
+        console.log('hello from token');
         accessToken.set(token);
         sessionStorage.setItem('access-token', token);
 
@@ -44,6 +46,7 @@ export class AuthFormService {
 
       if (res?.userEmail) {
         this.authState.setUserEmail(res.userEmail);
+        console.log('the user email is: ', this.authState.userEmail());
       }
     } catch (err: any) {
       const mapped = mapAuthError(err?.error);

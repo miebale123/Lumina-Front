@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HousesStore } from '../houses/houses.store';
 import { Search } from '../houses/search/search.component';
 import { LucideAngularModule, SearchIcon } from 'lucide-angular';
+import { HouseSearchStore } from '../houses/houses-search.store';
 
 @Component({
   selector: 'hero',
@@ -36,7 +37,7 @@ import { LucideAngularModule, SearchIcon } from 'lucide-angular';
 })
 export class Hero {
   private router = inject(Router);
-  private store = inject(HousesStore);
+  private store = inject(HouseSearchStore);
 
   s = SearchIcon;
 
@@ -56,7 +57,7 @@ export class Hero {
   }
 
   onSearch(value: string) {
-    this.store.setSearchField('location', value);
+    this.store.setField('location', value);
     this.router.navigateByUrl('/houses-search-results');
   }
 }

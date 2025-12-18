@@ -1,35 +1,34 @@
-   <div class="flex gap-4">
-      <app-range-dropdown
-        label="Price"
-        [range]="store.search().price"
-        [isOpen]="priceOpen()"
-        (toggle)="toggleDropdown('price')"
-        (apply)="applyRange('price', $event)"
-        (cancel)="cancelRange('price')"
-      ></app-range-dropdown>
+<div class="flex z-50">
+  @if (isDesktop()) {
+  <app-range-dropdown
+    label="Price"
+    [range]="housesSearchStore.price()"
+    [isOpen]="dropdownOpen().price"
+    (toggle)="toggleDropdown('price')"
+    (apply)="applyRange('price', $event)"
+    (cancel)="cancelRange('price')"
+  ></app-range-dropdown>
 
-      <app-range-dropdown
-        label="Bedrooms"
-        [range]="store.search().bedroom"
-        [isOpen]="bedroomOpen()"
-        (toggle)="toggleDropdown('bedroom')"
-        (apply)="applyRange('bedroom', $event)"
-        (cancel)="cancelRange('bedroom')"
-      ></app-range-dropdown>
+  <app-range-dropdown
+    label="Bedrooms"
+    [range]="housesSearchStore.bedroom()"
+    [isOpen]="dropdownOpen().bedroom"
+    (toggle)="toggleDropdown('bedroom')"
+    (apply)="applyRange('bedroom', $event)"
+    (cancel)="cancelRange('bedroom')"
+  ></app-range-dropdown>
 
-      <app-range-dropdown
-        label="Bathrooms"
-        [range]="store.search().bathroom"
-        [isOpen]="bathroomOpen()"
-        (toggle)="toggleDropdown('bathroom')"
-        (apply)="applyRange('bathroom', $event)"
-        (cancel)="cancelRange('bathroom')"
-      ></app-range-dropdown>
+  <app-range-dropdown
+    label="Bathrooms"
+    [range]="housesSearchStore.bathroom()"
+    [isOpen]="dropdownOpen().bathroom"
+    (toggle)="toggleDropdown('bathroom')"
+    (apply)="applyRange('bathroom', $event)"
+    (cancel)="cancelRange('bathroom')"
+  ></app-range-dropdown>
 
-      <app-range-dropdown
-        label="More"
-        [isOpen]="bathroomOpen()"
-      ></app-range-dropdown>
+  <app-range-dropdown label="More"></app-range-dropdown>
 
-      <button class="px-2 shadow-xl py-1 rounded-2xl border border-gray-200">save search</button>
-    </div>
+  <button class="px-2 shadow-xl py-1 rounded-2xl border border-gray-200">save search</button>
+  } @if (!isDesktop()) { }
+</div>

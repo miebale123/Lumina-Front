@@ -6,5 +6,6 @@ export interface House {
   bedroom: number;
   bathroom: number;
   area: string;
-  imageUrl: string;
+  secure_url: string;
+  assignedBrokerCompanyName: string;
 }
