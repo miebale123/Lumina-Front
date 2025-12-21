@@ -30,7 +30,7 @@ export class AuthFormService {
 
       console.log('the response is: ', res);
       message.set(res?.message);
-      userEmail.set(res?.userEmail);
+      userEmail.set(res?.email);
       isSuccess.set(true);
       form.reset();
 
@@ -44,9 +44,21 @@ export class AuthFormService {
         this.authState.setLoggedIn(true);
       }
 
-      if (res?.userEmail) {
-        this.authState.setUserEmail(res.userEmail);
+      if (res?.email) {
+        this.authState.setUserEmail(res.email);
         console.log('the user email is: ', this.authState.userEmail());
+      }
+
+      if (res?.lockedUntil) {
+        this.authState.setLockedUntil(res.lockedUntil);
+      }
+
+      if (res?.resendLockedUntil) {
+        this.authState.setResendLockedUntil(res.resendLockedUntil);
+      }
+
+      if (res.attemptsLeft !== undefined) {
+        this.authState.setAttemptsLeft(res.attemptsLeft);
       }
     } catch (err: any) {
       const mapped = mapAuthError(err?.error);

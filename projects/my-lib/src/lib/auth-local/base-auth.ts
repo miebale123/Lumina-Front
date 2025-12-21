@@ -34,6 +34,8 @@ export abstract class BaseAuthForm {
       accessToken: this.accessToken,
     });
 
+    console.log('the response after sign base auth is: ', this.userEmail());
+
     if (this.isSuccess()) {
       this.afterSuccess();
     }

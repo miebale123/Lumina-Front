@@ -3,7 +3,6 @@ import { Home } from './pages/home/home.component';
 import { Houses } from './pages/houses/houses.component';
 import { UploadBrokerInfo } from './pages/brokers/upload_broker-info.component';
 import { HousesSearchResults } from './pages/houses/houses-search-results.component';
-import { VerificationComponent } from 'my-lib';
 import { LayoutUserComponent } from './layout-user/layout-user.component';
 import { UploadHouse } from './pages/houses/upload-house/upload-house.component';
 import { UserSignup } from './pages/user-sign-up.component';
@@ -13,6 +12,7 @@ import { pendingHouses } from './layout-broker/pending-houses.component';
 import { ApprovedHouses } from './layout-broker/approved-houses.component';
 import { Bookmarks } from './pages/bookmarks/bookmarks.component';
 import { Notifications } from './pages/notifications/notifications.component';
+import { VerificationComponent } from './pages/email-verification.component';
 
 export const routes: Routes = [
   {

@@ -23,11 +23,9 @@ export class BaseSignup extends BaseAuthForm {
     await this.submitBase(this.apiUrl);
     this.utilsStore.stopLoading('signup');
   }
+
   override async afterSuccess() {
     this.overlayRef?.dispose();
-    sessionStorage.setItem('email', this.authState.userEmail()!);
-    const email = sessionStorage.getItem('email');
-    console.log('the user who logged in is: ', email);
     this.router.navigateByUrl('/auth/app-verification');
   }
 }
